@@ -1,0 +1,17 @@
+<p class="alert alert-success"><%= t('notices.success') %></p>
+
+<h1><%= t('products.index.title') %></h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="text-center"><%= t('products.index.name') %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render(@products) || t('products.index.no_products') %>
+  </tbody>
+</table>
+<br>
+<%= link_to t('products.index.new_product'), new_product_path, class: "btn btn-primary" %>

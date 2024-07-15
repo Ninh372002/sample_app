@@ -28,8 +28,9 @@
 /tmp/storage/*
 !/tmp/storage/
 !/tmp/storage/.keep
-/config/database.yml
-/public/assets
 
+/public/assets
+/test/*
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
