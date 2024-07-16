@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 ruby '3.3.0'
 
+
 gem "bcrypt", "~> 3.1.7"
 
 
@@ -24,6 +25,7 @@ gem 'sassc-rails'
 
 
 gem 'mysql2', '~> 0.5'
+
 
 
 gem 'puma', '>= 5.0'
