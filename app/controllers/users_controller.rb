@@ -2,8 +2,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show]
   def show; end
 
-
-
   def new
     @user = User.new
   end
@@ -12,6 +10,8 @@ class UsersController < ApplicationController
     @user = User.new user_params
 
     if @user.save
+      reset_session
+      log_in @user
       flash[:success] = 'Welcome to the Sample App!'
       redirect_to @user
     else
@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def set_user
     @user = User.find_by(id: params[:id])
     return if @user
