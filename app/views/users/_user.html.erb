@@ -1,12 +1,7 @@
-<div id="<%= dom_id user %>">
-  <p>
-    <strong>Name:</strong>
-    <%= user.name %>
-  </p>
-
-  <p>
-    <strong>Email:</strong>
-    <%= user.email %>
-  </p>
-
-</div>
+<li>
+  <%= gravatar_for user, size: 50 %>
+  <%= link_to user.name, user %>
+  <% if can_destroy_user? user%>
+    | <%= link_to "delete", user, data: { "turbo-method": :delete,turbo_confirm: "You sure?" }%>
+  <% end %>
+</li>
