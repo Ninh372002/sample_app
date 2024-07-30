@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
 
   scope :newest, -> { order(created_at: :desc) }
 
@@ -13,6 +13,7 @@ class User < ApplicationRecord
                        allow_nil: true
   has_secure_password
 
+  before_create :create_activation_digest
   before_save :downcase_email
   around_save :callback_around_save
   after_update :run_callback_after_update
@@ -29,6 +30,11 @@ class User < ApplicationRecord
 
   def downcase_email
     email.downcase!
+  end
+
+  def create_activation_digest
+    self.activation_token = User.new_token
+    self.activation_digest = User.digest(activation_token)
   end
 
   class << self
@@ -48,7 +54,8 @@ class User < ApplicationRecord
 
   def remember
     self.remember_token = User.new_token
-    update_column :remember_digest, User.digest(remember_token)
+    update_attribute(:remember_digest, User.digest(remember_token))
+    remember_digest
   end
 
   def authenticated?(remember_token)
@@ -57,5 +64,13 @@ class User < ApplicationRecord
 
   def forget
     update_column :remember_digest, nil
+  end
+
+  def activate
+    update_columns activated: true, activated_at: Time.zone.now
+  end
+
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
   end
 end
