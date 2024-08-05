@@ -30,7 +30,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @page, @microposts = pagy @user.microposts.newest, items: Settings.digit_10
+  end
 
   def index
     @pagy, @users = pagy User.newest, items: Settings.digit_10

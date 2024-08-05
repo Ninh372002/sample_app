@@ -24,8 +24,11 @@ gem 'importmap-rails'
 
 gem 'turbo-rails'
 
+gem 'active_storage_validations', '0.9.8'
+gem 'image_processing', '1.12.2'
 gem 'stimulus-rails'
 
+gem 'i18n-js'
 gem 'jbuilder'
 
 group :development, :test do
